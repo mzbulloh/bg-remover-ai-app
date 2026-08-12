@@ -29,6 +29,9 @@ export default function TartanBackground() {
 
       <View style={[styles.stripeV, { left: '50%', width: 3, backgroundColor: '#ffffff' }]} />
       <View style={[styles.stripeH, { top: '50%', height: 3, backgroundColor: '#ffffff' }]} />
+
+      {/* Subtle dimming overlay for max contrast & readability */}
+      <View style={styles.overlay} />
     </View>
   );
 }
@@ -47,5 +50,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
   },
 });
