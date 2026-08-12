@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
+import TartanBackground from '@/components/TartanBackground';
 
 export default function CreateScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -37,35 +38,7 @@ export default function CreateScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
-      {/* Scottish Tartan Background */}
-      <RNView style={styles.tartanBase} pointerEvents="none">
-        {/* Dark green thick vertical & horizontal stripes */}
-        <RNView style={[styles.stripeV, { left: '15%', width: 44, backgroundColor: 'rgba(12, 68, 28, 0.75)' }]} />
-        <RNView style={[styles.stripeV, { left: '65%', width: 44, backgroundColor: 'rgba(12, 68, 28, 0.75)' }]} />
-        <RNView style={[styles.stripeH, { top: '15%', height: 44, backgroundColor: 'rgba(12, 68, 28, 0.75)' }]} />
-        <RNView style={[styles.stripeH, { top: '65%', height: 44, backgroundColor: 'rgba(12, 68, 28, 0.75)' }]} />
-
-        {/* Navy blue medium stripes */}
-        <RNView style={[styles.stripeV, { left: '35%', width: 28, backgroundColor: 'rgba(14, 28, 80, 0.75)' }]} />
-        <RNView style={[styles.stripeV, { left: '85%', width: 28, backgroundColor: 'rgba(14, 28, 80, 0.75)' }]} />
-        <RNView style={[styles.stripeH, { top: '35%', height: 28, backgroundColor: 'rgba(14, 28, 80, 0.75)' }]} />
-        <RNView style={[styles.stripeH, { top: '85%', height: 28, backgroundColor: 'rgba(14, 28, 80, 0.75)' }]} />
-
-        {/* Black thin stripes */}
-        <RNView style={[styles.stripeV, { left: '10%', width: 12, backgroundColor: 'rgba(0, 0, 0, 0.85)' }]} />
-        <RNView style={[styles.stripeV, { left: '60%', width: 12, backgroundColor: 'rgba(0, 0, 0, 0.85)' }]} />
-        <RNView style={[styles.stripeH, { top: '10%', height: 12, backgroundColor: 'rgba(0, 0, 0, 0.85)' }]} />
-        <RNView style={[styles.stripeH, { top: '60%', height: 12, backgroundColor: 'rgba(0, 0, 0, 0.85)' }]} />
-
-        {/* Yellow & white fine accent lines */}
-        <RNView style={[styles.stripeV, { left: '25%', width: 4, backgroundColor: '#ffd700' }]} />
-        <RNView style={[styles.stripeV, { left: '75%', width: 4, backgroundColor: '#ffd700' }]} />
-        <RNView style={[styles.stripeH, { top: '25%', height: 4, backgroundColor: '#ffd700' }]} />
-        <RNView style={[styles.stripeH, { top: '75%', height: 4, backgroundColor: '#ffd700' }]} />
-
-        <RNView style={[styles.stripeV, { left: '50%', width: 3, backgroundColor: '#ffffff' }]} />
-        <RNView style={[styles.stripeH, { top: '50%', height: 3, backgroundColor: '#ffffff' }]} />
-      </RNView>
+      <TartanBackground />
 
       {/* Content Container */}
       <RNView style={styles.container}>
@@ -95,20 +68,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#8b0000',
   },
-  tartanBase: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#8b0000',
-  },
-  stripeV: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-  },
-  stripeH: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -122,7 +81,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
     marginBottom: 24,
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowColor: 'rgba(0, 0, 0, 0.85)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 4,
   },
@@ -177,7 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   hintText: {
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: 'rgba(255, 255, 255, 0.85)',
     fontSize: 15,
     textAlign: 'center',
   },

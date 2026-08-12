@@ -2,6 +2,7 @@ import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import TartanBackground from '@/components/TartanBackground';
 
 export default function ViewerScreen() {
   const router = useRouter();
@@ -22,9 +23,10 @@ export default function ViewerScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <TartanBackground />
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="chevron-back" size={26} color="#333" />
+          <Ionicons name="chevron-back" size={26} color="#ffffff" />
         </Pressable>
         <Text style={styles.headerTitle}>{title}</Text>
         <View style={{ width: 26 }} />
@@ -60,7 +62,7 @@ export default function ViewerScreen() {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#8b0000',
   },
   header: {
     flexDirection: 'row',
@@ -68,8 +70,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+    zIndex: 1,
   },
   backButton: {
     padding: 4,
@@ -77,36 +81,44 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111',
+    color: '#ffffff',
   },
   content: {
     flex: 1,
     padding: 24,
     alignItems: 'center',
+    zIndex: 1,
   },
   imageCard: {
     width: '100%',
-    height: 280,
+    height: 260,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   emoji: {
     fontSize: 80,
   },
   detailsCard: {
     width: '100%',
-    backgroundColor: '#f8f9fa',
-    borderRadius: 16,
+    backgroundColor: 'rgba(0, 0, 0, 0.78)',
+    borderRadius: 20,
     padding: 20,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: 'rgba(255, 255, 255, 0.25)',
   },
   detailsTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#333',
+    color: '#ffffff',
     marginBottom: 16,
   },
   row: {
@@ -116,15 +128,15 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#666',
+    color: '#cccccc',
   },
   value: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111',
+    color: '#ffffff',
   },
   divider: {
     height: 1,
-    backgroundColor: '#e9ecef',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
 });

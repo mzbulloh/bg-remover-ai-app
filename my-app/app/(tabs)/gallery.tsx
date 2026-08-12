@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, FlatList, Dimensions, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import TartanBackground from '@/components/TartanBackground';
 import EmptyGallery from '@/components/EmptyGallery';
 
 const COLUMNS = 3;
@@ -26,9 +27,12 @@ export default function GalleryScreen() {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <TartanBackground />
       <View style={styles.container}>
-        <Text style={styles.heading}>Gallery</Text>
-        <Text style={styles.subheading}>{GALLERY_ITEMS.length} items saved</Text>
+        <View style={styles.headerCard}>
+          <Text style={styles.heading}>Gallery</Text>
+          <Text style={styles.subheading}>{GALLERY_ITEMS.length} items saved</Text>
+        </View>
 
         <FlatList
           data={GALLERY_ITEMS}
@@ -53,22 +57,32 @@ export default function GalleryScreen() {
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#8b0000',
   },
   container: {
     flex: 1,
     paddingHorizontal: SCREEN_PADDING,
+    zIndex: 1,
+  },
+  headerCard: {
+    backgroundColor: 'rgba(0, 0, 0, 0.78)',
+    borderRadius: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    marginTop: 12,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   heading: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#111',
-    marginTop: 16,
+    color: '#ffffff',
   },
   subheading: {
     fontSize: 14,
-    color: '#777',
-    marginBottom: 16,
+    color: '#e0e0e0',
+    marginTop: 2,
   },
   grid: {
     paddingBottom: 24,
@@ -77,9 +91,16 @@ const styles = StyleSheet.create({
   tile: {
     width: TILE_SIZE,
     height: TILE_SIZE,
-    borderRadius: 12,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.4)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 3,
   },
   emoji: {
     fontSize: 32,
