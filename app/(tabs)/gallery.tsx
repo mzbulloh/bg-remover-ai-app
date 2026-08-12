@@ -1,74 +1,83 @@
-import { StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Dimensions, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import EmptyGallery from '@/components/EmptyGallery';
 
 const COLUMNS = 3;
-const GAP = 4;
+const GAP = 8;
+const SCREEN_PADDING = 16;
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const TILE_SIZE = (SCREEN_WIDTH - GAP * (COLUMNS + 1)) / COLUMNS;
+const TILE_SIZE = (SCREEN_WIDTH - SCREEN_PADDING * 2 - GAP * (COLUMNS - 1)) / COLUMNS;
 
-// 9 placeholder tiles using local colours and emoji
-const PLACEHOLDERS = [
-  { id: '1', color: '#ffd6d6', emoji: '🌸' },
-  { id: '2', color: '#d6e8ff', emoji: '🐬' },
-  { id: '3', color: '#d6ffd6', emoji: '🌿' },
-  { id: '4', color: '#fff4d6', emoji: '🌻' },
-  { id: '5', color: '#e8d6ff', emoji: '🦋' },
-  { id: '6', color: '#d6fff4', emoji: '🐢' },
-  { id: '7', color: '#ffd6f0', emoji: '🌷' },
-  { id: '8', color: '#d6f0ff', emoji: '🐳' },
-  { id: '9', color: '#f0ffd6', emoji: '🍀' },
+export const GALLERY_ITEMS = [
+  { id: '1', title: 'Flower Cutout', color: '#ffd6d6', emoji: '🌸', date: 'Aug 12, 2026', size: '1080 × 1080' },
+  { id: '2', title: 'Dolphin View', color: '#d6e8ff', emoji: '🐬', date: 'Aug 11, 2026', size: '1200 × 800' },
+  { id: '3', title: 'Leaf Layer', color: '#d6ffd6', emoji: '🌿', date: 'Aug 10, 2026', size: '960 × 960' },
+  { id: '4', title: 'Sunflower', color: '#fff4d6', emoji: '🌻', date: 'Aug 09, 2026', size: '1024 × 1024' },
+  { id: '5', title: 'Butterfly', color: '#e8d6ff', emoji: '🦋', date: 'Aug 08, 2026', size: '800 × 800' },
+  { id: '6', title: 'Turtle Shell', color: '#d6fff4', emoji: '🐢', date: 'Aug 07, 2026', size: '1200 × 1200' },
+  { id: '7', title: 'Tulip Field', color: '#ffd6f0', emoji: '🌷', date: 'Aug 06, 2026', size: '750 × 750' },
+  { id: '8', title: 'Blue Whale', color: '#d6f0ff', emoji: '🐳', date: 'Aug 05, 2026', size: '1440 × 900' },
+  { id: '9', title: 'Clover Leaf', color: '#f0ffd6', emoji: '🍀', date: 'Aug 04, 2026', size: '1000 × 1000' },
 ];
 
-function Tile({ color, emoji }: { color: string; emoji: string }) {
-  return (
-    <View style={[styles.tile, { backgroundColor: color }]}>
-      <Text style={styles.emoji}>{emoji}</Text>
-    </View>
-  );
-}
-
 export default function GalleryScreen() {
+  const router = useRouter();
+
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={PLACEHOLDERS}
-        keyExtractor={(item) => item.id}
-        numColumns={COLUMNS}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.grid}
-        ListHeaderComponent={<Text style={styles.heading}>Gallery</Text>}
-        ListFooterComponent={<EmptyGallery />}
-        renderItem={({ item }) => <Tile color={item.color} emoji={item.emoji} />}
-      />
-    </View>
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Gallery</Text>
+        <Text style={styles.subheading}>{GALLERY_ITEMS.length} items saved</Text>
+
+        <FlatList
+          data={GALLERY_ITEMS}
+          keyExtractor={(item) => item.id}
+          numColumns={COLUMNS}
+          columnWrapperStyle={{ gap: GAP }}
+          contentContainerStyle={styles.grid}
+          ListFooterComponent={<EmptyGallery />}
+          renderItem={({ item }) => (
+            <Pressable
+              style={({ pressed }) => [styles.tile, { backgroundColor: item.color, opacity: pressed ? 0.7 : 1 }]}
+              onPress={() => router.push({ pathname: '/viewer', params: item })}>
+              <Text style={styles.emoji}>{item.emoji}</Text>
+            </Pressable>
+          )}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safe: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: SCREEN_PADDING,
   },
   heading: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
-    paddingHorizontal: GAP,
-    paddingTop: 20,
-    paddingBottom: 12,
+    color: '#111',
+    marginTop: 16,
+  },
+  subheading: {
+    fontSize: 14,
+    color: '#777',
+    marginBottom: 16,
   },
   grid: {
-    paddingHorizontal: GAP,
     paddingBottom: 24,
-  },
-  row: {
     gap: GAP,
-    marginBottom: GAP,
   },
   tile: {
     width: TILE_SIZE,
     height: TILE_SIZE,
-    borderRadius: 10,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },

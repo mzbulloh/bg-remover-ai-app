@@ -7,13 +7,13 @@ import {
   Image,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function CreateScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   async function pickImage() {
-    // Ask for permission first
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
@@ -36,56 +36,98 @@ export default function CreateScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create</Text>
+    <SafeAreaView style={styles.safe}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Create</Text>
 
-      <TouchableOpacity style={styles.button} onPress={pickImage}>
-        <Text style={styles.buttonText}>📷  Choose a Photo</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={pickImage} activeOpacity={0.8}>
+          <Text style={styles.buttonText}>📷 Choose a Photo</Text>
+        </TouchableOpacity>
 
-      {imageUri ? (
-        <Image source={{ uri: imageUri }} style={styles.preview} resizeMode="contain" />
-      ) : (
-        <Text style={styles.hint}>Your photo will appear here</Text>
-      )}
-    </View>
+        {imageUri ? (
+          <View style={styles.imageCard}>
+            <Image source={{ uri: imageUri }} style={styles.preview} resizeMode="contain" />
+          </View>
+        ) : (
+          <View style={styles.placeholderCard}>
+            <Text style={styles.hintEmoji}>🖼️</Text>
+            <Text style={styles.hintText}>Your selected photo will appear here</Text>
+          </View>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safe: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 16,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 32,
+    color: '#111',
+    alignSelf: 'flex-start',
+    marginBottom: 24,
   },
   button: {
     backgroundColor: '#8b0000',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 16,
-    marginBottom: 32,
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 24,
+    shadowColor: '#8b0000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 3,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '600',
+  },
+  imageCard: {
+    width: '100%',
+    height: 320,
+    borderRadius: 16,
+    backgroundColor: '#f8f9fa',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#eee',
   },
   preview: {
     width: '100%',
-    height: 300,
-    borderRadius: 12,
+    height: '100%',
   },
-  hint: {
-    color: '#aaa',
-    fontSize: 16,
-    marginTop: 8,
+  placeholderCard: {
+    width: '100%',
+    height: 240,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#e9ecef',
+    borderStyle: 'dashed',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fafafa',
+    padding: 20,
+  },
+  hintEmoji: {
+    fontSize: 40,
+    marginBottom: 12,
+  },
+  hintText: {
+    color: '#888',
+    fontSize: 15,
+    textAlign: 'center',
   },
 });

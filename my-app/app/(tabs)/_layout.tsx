@@ -5,17 +5,24 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarActiveTintColor: '#8b0000',
         tabBarInactiveTintColor: '#888',
-        headerStyle: { backgroundColor: '#8b0000' },
-        headerTintColor: '#fff',
+        tabBarStyle: {
+          backgroundColor: '#ffffff',
+          borderTopColor: '#eee',
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Create',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cut-outline" size={size} color={color} />
+            <Ionicons name="add-circle-outline" size={size} color={color} />
           ),
         }}
       />
