@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gridOverlay: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     flexDirection: 'column',
   },
   row: {

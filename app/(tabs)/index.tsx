@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   processingOverlay: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     justifyContent: 'center',
     alignItems: 'center',

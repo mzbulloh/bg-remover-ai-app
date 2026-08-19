@@ -38,7 +38,7 @@ export default function TartanBackground() {
 
 const styles = StyleSheet.create({
   tartanBase: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: '#8b0000',
   },
   stripeV: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   overlay: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.35)',
   },
 });
